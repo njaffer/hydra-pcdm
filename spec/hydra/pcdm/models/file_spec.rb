@@ -22,4 +22,25 @@ describe Hydra::PCDM::File do
       expect(reloaded.label).to eq ['foo']
     end
   end
+
+  context "when implementing pcdm.File in another class" do
+    let(:container) { Kontainer.create }
+    before do
+      class MyFile < Hydra::PCDM::File
+      end
+      class Kontainer < Hydra::PCDM::Object
+        directly_contains :files, has_member_relation: ::RDF::URI("http://pcdm.org/hasFile"), class_name: "MyFile"
+      end
+      file = container.files.build 
+      container.files = [file]
+      container.save
+    end
+    after do
+      Object.send(:remove_const, :MyFile)
+      Object.send(:remove_const, :Kontainer)
+    end
+    subject { container.files.first.metadata_node.type }
+    it { is_expected.to include(RDFVocabularies::PCDMTerms.File)}
+  end
+
 end
