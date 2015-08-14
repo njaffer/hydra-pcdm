@@ -2,7 +2,7 @@ module Hydra::PCDM
   module PcdmBehavior
     extend ActiveSupport::Concern
     included do
-      aggregates :members, predicate: RDFVocabularies::PCDMTerms.hasMember,
+      aggregates :members, predicate: Vocab::PCDMTerms.hasMember,
                            class_name: 'ActiveFedora::Base',
                            type_validator: type_validator
       filters_association :members, as: :child_objects, condition: :pcdm_object?
@@ -28,6 +28,10 @@ module Hydra::PCDM
 
     def parent_collections
       aggregated_by.select(&:pcdm_collection?)
+    end
+
+    def parent_collection_ids
+      parent_collections.map(&:id)
     end
   end
 end
