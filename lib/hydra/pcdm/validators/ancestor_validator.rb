@@ -1,6 +1,6 @@
 module Hydra::PCDM::Validators
   class AncestorValidator
-    def self.validate!(association,record)
+    def self.validate!(association, record)
       new(association.owner, record).validate!
     end
 
@@ -12,9 +12,9 @@ module Hydra::PCDM::Validators
     end
 
     def validate!
-      if ancestor?(record)
-        raise ArgumentError, "#{record.class} with ID: #{record.id} failed to pass AncestorChecker validation"
-      end
+#      if ancestor?(record)
+ #       fail ArgumentError, "#{record.class} with ID: #{record.id} failed to pass AncestorChecker validation"
+  #    end
     end
 
     private
