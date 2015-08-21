@@ -41,6 +41,7 @@ module Hydra
     # Associations
     autoload :AncestorChecker,                   'hydra/pcdm/ancestor_checker'
     autoload :Validators,                        'hydra/pcdm/validators'
+<<<<<<< HEAD
 
     # model validations
     def self.collection?(collection)
@@ -57,5 +58,7 @@ module Hydra
       return false unless file.respond_to? :metadata_node
       Array(file.metadata_node.type).include? Vocab::PCDMTerms.File
     end
+=======
+>>>>>>> c3142bce4665141cc8bb367a362ef1f278171b29
   end
 end
